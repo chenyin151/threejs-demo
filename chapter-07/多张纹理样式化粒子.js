@@ -4,7 +4,7 @@
  * @Author: cy
  * @Date: 2021-08-24 16:47:10
  * @LastEditors: cy
- * @LastEditTime: 2021-08-24 17:11:20
+ * @LastEditTime: 2021-08-25 09:15:08
  */
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, .1, 1000);
@@ -22,13 +22,14 @@ render();
 function createPointCloud(name, texture, size, transparent, opacity, sizeAttenuation, color) {
     var geom = new THREE.Geometry();
     var color = new THREE.Color(color);
-    color.setHSL(color.getHSL().h, color.getHSL().s, color.getHSL().l);
+    color.setHSL(color.getHSL().h, color.getHSL().s, Math.random() * color.getHSL().l);
     var material = new THREE.PointCloudMaterial({
         size: size,
         transparent: transparent,
         opacity: opacity,
         map: texture,
         blending: THREE.AdditiveBlending, 
+        // depthWrite设置为true那么当一个粒子在另个PointCloud粒子前会看到纹理的黑色背景
         depthWrite: false,
         sizeAttenuation: sizeAttenuation,
         color: color
