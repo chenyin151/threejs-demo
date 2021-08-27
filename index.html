@@ -3,13 +3,10 @@
  * @version: 
  * @Author: cy
  * @Date: 2020-12-21 17:29:24
-<<<<<<< HEAD
  * @LastEditors: cy
- * @LastEditTime: 2021-08-26 16:18:03
-=======
+ * @LastEditTime: 2021-08-27 16:27:32
  * @LastEditors: Please set LastEditors
  * @LastEditTime: 2021-03-06 01:54:17
->>>>>>> 95a69689420dc1c12edf314f91962efd184f0313
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +14,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My first three.js app</title>
+    <link href="../libs/literally/css/literally.css" rel="stylesheet">
     <style>
         body { 
             margin: 0;
@@ -24,6 +22,20 @@
         canvas {
             width: 100%;
             height: 100%;
+        }
+        .fs-container {
+            width: 300px;
+            height: 300px;
+            margin: auto;
+            bottom: 20px;
+            position: absolute;
+            x: 0;
+            y: 0;
+        }
+
+        #canvas-output {
+            width: 300px;
+            height: 300px;
         }
     </style>
 </head>
@@ -54,6 +66,11 @@
     <script src="./libs/RollControls.js"></script>
     <script src="./libs/FirstPersonControls.js"></script>
     <script src="./libs/DDSLoader.js"></script>
+    <script src="./libs/literally/jquery-1.8.2.js"></script>
+    <script src="./libs/perlin.js"></script>
+    <script src="./libs/literally/literallycanvas.js"></script>
+    <script src="./libs/literally/underscore-1.4.2.js"></script>
+    
     <!-- <script src="./chapter-01/05-场景对浏览器的自适应.js"></script> -->
     <!-- <script src="./chapter-02/场景的基本功能.js"></script> -->
     <!-- <script src="./chapter-02/02-给场景添加雾化效果.js"></script> -->
@@ -98,7 +115,10 @@
     <!-- <script src="./chapter-10/使用法向贴图创建更加细致的凹凸和褶皱.js"></script> -->
     <!-- <script src="./chapter-10/使用光照贴图创建阴影效果.js"></script> -->
     <!-- <script src="./chapter-10/自定义UV映射-01.js"></script> -->
-    <script src="./chapter-10/重复纹理.js"></script>
+    <!-- <script src="./chapter-10/重复纹理.js"></script> -->
+    <!-- <script src="./chapter-10/在画布上绘制图案并作为纹理.js"></script> -->
+    <!-- <script src="./chapter-10/视频贴图.js"></script> -->
+    <script src="./chapter-10/使用环境贴图创建反光效果.js"></script>
     <script>
         var stats = initStats();
         updateStats();
