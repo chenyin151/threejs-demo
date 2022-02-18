@@ -1,0 +1,98 @@
+<!--
+ * @Description: 
+ * @version: 
+ * @Author: cy
+ * @Date: 2021-12-06 16:52:57
+ * @LastEditors: cy
+ * @LastEditTime: 2021-12-14 17:23:26
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script src="./libs/three.min.js"></script>
+<script src="./libs/OrbitControls.js"></script>
+<script src="./libs/stats.min.js"></script>
+<!-- 
+<script src="js/stats.js"></script>
+<script src="js/windowResize.js"></script> -->
+    <script type="x-shader/x-fragment" id="fragmentShader">
+        //获取纹理
+        uniform sampler2D texture1;
+        //纹理坐标
+        varying vec2 vUv;
+
+        void main(void){
+        //texture2D()获取纹素
+            gl_FragColor = texture2D(texture1, vUv);
+        }
+
+
+    </script>
+
+    <script id="vertexShader" type="x-shader/x-vertex">
+        varying vec2 vUv;
+        void main()
+            {
+                vUv = uv;
+                vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+                //projectionMatrix * mvPosition; 最终得到MVP矩阵
+                gl_Position = projectionMatrix * mvPosition;
+
+            }
+    </script>
+<style>
+*{ margin:0; padding:0}
+</style>
+</head>
+
+<body>
+<div id="Stats-output"></div>
+<script>
+    // var stats = initStats();
+
+    var scene = new THREE.Scene();
+
+    var camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 10000);
+    camera.position.set(0, 0, 10);
+    camera.lookAt(scene.position);
+
+    var renderer = new THREE.WebGLRenderer({antialias:true});
+    renderer.setClearColor(0xffffff);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    var textureLoader = new THREE.TextureLoader();
+
+    //配置shaderMaterial中的uniforms属性
+    var uniforms = {
+        texture1 : {value : textureLoader.load('img/img-1.png')}
+    };
+    //设置平铺方式
+    debugger
+    uniforms.texture1.value.wrapS = uniforms.texture1.value.wrapT = THREE.RepeatWrapping;
+
+    var planeGeometry = new THREE.PlaneGeometry(3, 3);
+    var planeMaterial = new THREE.ShaderMaterial({
+        uniforms : uniforms,
+        vertexShader: document.getElementById( 'vertexShader' ).textContent,
+        fragmentShader: document.getElementById( 'fragmentShader' ).textContent,
+        side:THREE.DoubleSide
+    });
+    var plane = new THREE.Mesh(planeGeometry, planeMaterial);
+    scene.add(plane);
+
+    var orbitControls = new THREE.OrbitControls(camera);
+
+    function render() {
+        // stats.update();
+        requestAnimationFrame(render);
+        renderer.render(scene, camera);
+    }
+
+    render();
+
+</script>
+</body>
+</html>
