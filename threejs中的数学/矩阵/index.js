@@ -4,7 +4,7 @@
  * @Author: cy
  * @Date: 2022-02-18 14:43:24
  * @LastEditors: cy
- * @LastEditTime: 2022-02-18 17:54:11
+ * @LastEditTime: 2022-02-21 11:01:23
  * https://blog.csdn.net/qq_38701868/article/details/109149556
  */
 // set方法是用行优先，内部处理是用列优先
@@ -70,12 +70,27 @@ var m12 = new THREE.Matrix3();
 var m13 = new THREE.Matrix3();
 m12.set(1,2,3,4,5,6,7,8,9);
 m13.setFromMatrix4(new THREE.Matrix4().makeScale(.5,.5,.5));
-console.log('左乘矩阵：', m12.multiply(m13).elements);
+console.log('左乘矩阵：', m12.multiply(m13).elements, m13.elements);
 
 // premultiply( m: Matrix3 ): Matrix3
 // 将当前矩阵右乘m
-// m12.set(1,2,3,4,5,6,7,8,9);
-// console.log('右乘矩阵：', m12.premultiply(m13).elements);
+m12.set(1,2,3,4,5,6,7,8,9);
+console.log('右乘矩阵：', m12.premultiply(m13).elements);
+
+// multiplyMatrices(a: Matrix3, b: Matrix3): Matrix3
+// 设置当前矩阵为矩阵A * 矩阵B,就是把两个矩阵相乘的结果返回
+var m14 = new THREE.Matrix3();
+m14.set(1,2,3,4,5,6,7,8,9);
+var m15 = new THREE.Matrix3()
+m15.set(9,8,7,6,5,4,3,2,1);
+console.log('两个矩阵相乘，包括左乘和右乘', new THREE.Matrix3().multiplyMatrices(m15,m14).elements)
+
+// multiplyVector(vector: Vector3):any
+// 向量与矩阵相乘，也就是向量的变换
+var m16 = new THREE.Matrix3();
+m16.set(1,2,3,4,5,6,7,8,9);
+var vec3 = new THREE.Vector3(1,2,3);
+console.log('向量与矩阵相乘，也就是向量的变换', m16.multiplyVector3(vec3))
 
 
 
